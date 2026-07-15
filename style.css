@@ -729,6 +729,17 @@ body.professional-view .nav-toggle span {
   text-align: center;
   display: grid;
   justify-items: center;
+  background: rgba(6, 15, 32, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 32px 36px;
+}
+
+[data-theme="minimal"] .minimal-copy {
+  background: rgba(240, 245, 255, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .home-name {
