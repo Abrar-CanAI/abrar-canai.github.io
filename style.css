@@ -664,29 +664,59 @@ main {
   padding: 8px 10px;
 }
 
-body.professional-view .brand {
+[data-theme="minimal"] body.professional-view .brand {
   background: linear-gradient(140deg, #bfdbfe, #93c5fd);
   color: #1e3a6e;
 }
 
-body.professional-view .theme-toggle {
+[data-theme="minimal"] body.professional-view .theme-toggle {
   background: rgba(255, 255, 255, 0.92);
   border-color: rgba(203, 213, 225, 0.9);
   color: #1f2937;
 }
 
-body.professional-view .site-nav a {
+[data-theme="minimal"] body.professional-view .site-nav a {
   color: #334155;
 }
 
-body.professional-view .site-nav a:hover,
-body.professional-view .site-nav a.active {
+[data-theme="minimal"] body.professional-view .site-nav a:hover,
+[data-theme="minimal"] body.professional-view .site-nav a.active {
   color: #0f172a;
   background: rgba(15, 23, 42, 0.06);
   border-color: rgba(203, 213, 225, 0.95);
 }
 
-body.professional-view .nav-toggle span {
+[data-theme="minimal"] body.professional-view .nav-toggle span {
+  background: #1f2937;
+}
+
+[data-theme="editorial"] body.professional-view .site-header {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.9);
+  border-radius: 14px;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.14);
+  backdrop-filter: blur(10px);
+  padding: 8px 10px;
+}
+
+[data-theme="editorial"] body.professional-view .theme-toggle {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(203, 213, 225, 0.9);
+  color: #1f2937;
+}
+
+[data-theme="editorial"] body.professional-view .site-nav a {
+  color: #334155;
+}
+
+[data-theme="editorial"] body.professional-view .site-nav a:hover,
+[data-theme="editorial"] body.professional-view .site-nav a.active {
+  color: #0f172a;
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(203, 213, 225, 0.95);
+}
+
+[data-theme="editorial"] body.professional-view .nav-toggle span {
   background: #1f2937;
 }
 
