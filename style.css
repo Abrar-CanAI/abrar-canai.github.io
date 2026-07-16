@@ -541,16 +541,11 @@ main {
   color: var(--text);
 }
 
-/* ── Light mode: white card zone ── */
+/* ── Light mode: keep outer zone transparent so only cards show ── */
 [data-theme="minimal"] .professional-zone-wrap {
-  background: linear-gradient(
-    180deg,
-    rgba(252, 253, 255, calc(0.32 + (var(--section-overlay-strength) * 0.64))),
-    rgba(246, 248, 252, calc(0.35 + (var(--section-overlay-strength) * 0.62)))
-  );
-  border: 1px solid rgba(210, 215, 225, calc(0.36 + (var(--section-overlay-strength) * 0.34)));
-  box-shadow: 0 12px 30px rgba(11, 20, 40, 0.12);
-  transition: background 0.3s ease, border-color 0.3s ease;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 [data-theme="minimal"] .professional-section {
