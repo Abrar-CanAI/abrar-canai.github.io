@@ -117,12 +117,12 @@ const createStarfield = () => {
     canvas.height = Math.floor(height * dpr);
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const columns = clamp(Math.floor(width / 145), 7, 13);
-    const rows = clamp(Math.floor(height / 125), 5, 10);
-    const xSpanStart = width * 0.03;
-    const xSpanEnd = width * 0.97;
-    const ySpanStart = height * 0.06;
-    const ySpanEnd = height * 0.92;
+    const columns = clamp(Math.floor(width / 120), 9, 16);
+    const rows = clamp(Math.floor(height / 105), 7, 12);
+    const xSpanStart = width * -0.02;
+    const xSpanEnd = width * 1.02;
+    const ySpanStart = height * -0.02;
+    const ySpanEnd = height * 1.02;
     const xStep = (xSpanEnd - xSpanStart) / Math.max(columns - 1, 1);
     const yStep = (ySpanEnd - ySpanStart) / Math.max(rows - 1, 1);
 
@@ -130,8 +130,8 @@ const createStarfield = () => {
     for (let row = 0; row < rows; row += 1) {
       for (let col = 0; col < columns; col += 1) {
         nodes.push({
-          x: xSpanStart + (col * xStep) + ((Math.random() - 0.5) * xStep * 0.22),
-          y: ySpanStart + (row * yStep) + ((Math.random() - 0.5) * yStep * 0.3),
+          x: xSpanStart + (col * xStep) + ((Math.random() - 0.5) * xStep * 0.36),
+          y: ySpanStart + (row * yStep) + ((Math.random() - 0.5) * yStep * 0.42),
           baseSize: Math.random() * 1.4 + 1.2,
           pulseSpeed: Math.random() * 0.06 + 0.02,
           pulsePhase: Math.random() * Math.PI * 2,
@@ -162,25 +162,31 @@ const createStarfield = () => {
         if (col < columns - 1) {
           pushLink(index, index + 1);
         }
-        if (row < rows - 1 && Math.random() < 0.92) {
+        if (row < rows - 1 && Math.random() < 0.96) {
           pushLink(index, index + columns);
         }
-        if (col < columns - 1 && row < rows - 1 && Math.random() < 0.42) {
+        if (col < columns - 1 && row < rows - 1 && Math.random() < 0.62) {
           pushLink(index, index + columns + 1);
         }
-        if (col > 0 && row < rows - 1 && Math.random() < 0.28) {
+        if (col > 0 && row < rows - 1 && Math.random() < 0.48) {
           pushLink(index, index + columns - 1);
+        }
+        if (col < columns - 2 && Math.random() < 0.38) {
+          pushLink(index, index + 2);
+        }
+        if (row < rows - 2 && Math.random() < 0.34) {
+          pushLink(index, index + (columns * 2));
         }
       }
     }
 
-    const packetCount = clamp(Math.floor(links.length * 0.72), 34, 150);
+    const packetCount = clamp(Math.floor(links.length * 1.3), 90, 320);
     packets = [];
     for (let i = 0; i < packetCount; i += 1) {
       packets.push({
         linkIndex: Math.floor(Math.random() * links.length),
         t: Math.random(),
-        speed: Math.random() * 0.003 + 0.0012,
+        speed: Math.random() * 0.004 + 0.0018,
         size: Math.random() * 1.6 + 1,
         alpha: Math.random() * 0.35 + 0.5,
       });
@@ -210,8 +216,8 @@ const createStarfield = () => {
       context.stroke();
 
       context.setLineDash([10, 20]);
-      context.lineDashOffset = -(tick * 0.22);
-      context.strokeStyle = "rgba(" + palette.flowRgb + ", 0.34)";
+      context.lineDashOffset = -(tick * 0.34);
+      context.strokeStyle = "rgba(" + palette.flowRgb + ", 0.44)";
       context.lineWidth = 0.9;
       context.stroke();
       context.setLineDash([]);
