@@ -72,6 +72,11 @@ const createStarfield = () => {
   let tick = 0;
   let enabledState = false;
   let intensity = 0.92;
+  let pointerParallaxTargetX = 0;
+  let pointerParallaxTargetY = 0;
+  let pointerParallaxX = 0;
+  let pointerParallaxY = 0;
+  const pointerParallaxLimit = 14;
   const clamp = (value, minValue, maxValue) => {
     return Math.min(maxValue, Math.max(minValue, value));
   };
@@ -185,6 +190,8 @@ const createStarfield = () => {
   const drawFrame = () => {
     context.clearRect(0, 0, width, height);
     tick += 1;
+    pointerParallaxX += (pointerParallaxTargetX - pointerParallaxX) * 0.08;
+    pointerParallaxY += (pointerParallaxTargetY - pointerParallaxY) * 0.08;
     const palette = getPalette();
 
     const positions = nodes.map((node) => getNodePosition(node, tick));
@@ -196,8 +203,8 @@ const createStarfield = () => {
         return;
       }
       context.beginPath();
-      context.moveTo(from.x, from.y);
-      context.lineTo(to.x, to.y);
+      context.moveTo(from.x + pointerParallaxX, from.y + pointerParallaxY);
+      context.lineTo(to.x + pointerParallaxX, to.y + pointerParallaxY);
       context.strokeStyle = "rgba(" + palette.linkRgb + ", 0.23)";
       context.lineWidth = 1;
       context.stroke();
@@ -227,8 +234,8 @@ const createStarfield = () => {
         packet.linkIndex = Math.floor(Math.random() * links.length);
       }
 
-      const x = from.x + ((to.x - from.x) * packet.t);
-      const y = from.y + ((to.y - from.y) * packet.t);
+      const x = from.x + ((to.x - from.x) * packet.t) + pointerParallaxX;
+      const y = from.y + ((to.y - from.y) * packet.t) + pointerParallaxY;
 
       context.beginPath();
       context.arc(x, y, packet.size * 2.8, 0, Math.PI * 2);
@@ -250,12 +257,12 @@ const createStarfield = () => {
       const radius = node.baseSize + (pulse * 1.25);
 
       context.beginPath();
-      context.arc(point.x, point.y, radius * 3.2, 0, Math.PI * 2);
+      context.arc(point.x + pointerParallaxX, point.y + pointerParallaxY, radius * 3.2, 0, Math.PI * 2);
       context.fillStyle = "rgba(" + palette.nodeGlowRgb + ", " + (0.14 + (pulse * 0.16)) + ")";
       context.fill();
 
       context.beginPath();
-      context.arc(point.x, point.y, radius, 0, Math.PI * 2);
+      context.arc(point.x + pointerParallaxX, point.y + pointerParallaxY, radius, 0, Math.PI * 2);
       context.fillStyle = "rgba(" + palette.nodeRgb + ", " + (0.62 + (pulse * 0.26)) + ")";
       context.fill();
     });
@@ -274,6 +281,9 @@ const createStarfield = () => {
       return;
     }
     if (!enabled && running) {
+      resetPointerParallax();
+      pointerParallaxX = 0;
+      pointerParallaxY = 0;
       running = false;
       window.cancelAnimationFrame(frameId);
       context.clearRect(0, 0, width, height);
@@ -287,11 +297,28 @@ const createStarfield = () => {
     }
   };
 
+  const setPointerPosition = (clientX, clientY) => {
+    if (!width || !height) {
+      return;
+    }
+    const offsetX = ((clientX - (width / 2)) / width) * 2;
+    const offsetY = ((clientY - (height / 2)) / height) * 2;
+    pointerParallaxTargetX = offsetX * pointerParallaxLimit;
+    pointerParallaxTargetY = offsetY * pointerParallaxLimit * -1;
+  };
+
+  const resetPointerParallax = () => {
+    pointerParallaxTargetX = 0;
+    pointerParallaxTargetY = 0;
+  };
+
   resize();
   return {
     resize,
     setEnabled,
     setIntensity,
+    setPointerPosition,
+    resetPointerParallax,
   };
 };
 
@@ -326,6 +353,20 @@ if (starfieldController) {
   window.addEventListener("resize", () => {
     starfieldController.resize();
   });
+
+  if (isHomePage && heroSection) {
+    heroSection.addEventListener("pointermove", (event) => {
+      const motionEnabled = document.documentElement.getAttribute("data-motion") === "on";
+      if (!motionEnabled || !supportsFinePointer.matches || prefersReducedMotion.matches) {
+        return;
+      }
+      starfieldController.setPointerPosition(event.clientX, event.clientY);
+    });
+
+    heroSection.addEventListener("pointerleave", () => {
+      starfieldController.resetPointerParallax();
+    });
+  }
 }
 
 if (prefersReducedMotion.addEventListener) {
