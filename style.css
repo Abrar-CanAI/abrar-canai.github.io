@@ -725,7 +725,7 @@ main {
 }
 
 .home-minimal .hero-portrait-shell {
-  width: min(100%, 180px);
+  width: min(100%, 220px);
   aspect-ratio: 1 / 1;
   position: relative;
 }
@@ -743,7 +743,7 @@ main {
 }
 
 .home-minimal .portrait-frame {
-  width: min(100%, 180px);
+  width: min(100%, 220px);
   border-radius: 50%;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.34);
@@ -1368,7 +1368,7 @@ main {
 
   .home-minimal .hero-portrait-shell,
   .home-minimal .portrait-frame {
-    width: min(100%, 150px);
+    width: min(100%, 180px);
   }
 
   .home-name {
