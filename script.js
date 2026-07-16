@@ -461,6 +461,7 @@ const updateStarfieldByScroll = () => {
   const heroRect = heroSection.getBoundingClientRect();
   const progressRaw = (0 - heroRect.top) / Math.max(heroRect.height * 0.9, 1);
   const progress = Math.min(Math.max(progressRaw, 0), 1);
+  document.documentElement.style.setProperty("--section-overlay-strength", String(progress));
   document.body.classList.toggle("professional-view", progress > 0.55);
 
   const motionEnabled = document.documentElement.getAttribute("data-motion") === "on";
