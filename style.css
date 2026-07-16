@@ -615,10 +615,10 @@ main {
 }
 
 [data-theme="minimal"] .professional-zone-wrap .section-card {
-  background: #ffffff;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 8px 22px rgba(12, 23, 43, 0.09);
-  backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(100, 180, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
 }
 
 [data-theme="minimal"] .professional-zone-wrap .chip {
@@ -640,7 +640,8 @@ main {
 [data-theme="minimal"] .professional-zone-wrap .feature-card:hover,
 [data-theme="minimal"] .professional-zone-wrap .skill-group:hover,
 [data-theme="minimal"] .professional-zone-wrap .contact-card:hover {
-  border-color: rgba(203, 213, 225, 0.9);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(100, 180, 255, 0.2);
 }
 
 /* ── Section content: dark mode (editorial) ── */
